@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>Componi la Frase</title>
+  <style>
+    body {
+     
+      font-family:'Courier New', Courier, monospace;
+      background-color: #000000;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .blocks, .dropzone {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 5px;
+      margin: 10px;
+      max-width: 800px;
+    }
+    .block, .slot {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      width: 110px;
+      height: 60px;
+      border: 2px solid #000;
+      background-color: white;
+      cursor: grab;
+      text-align: center;
+      line-height: 1.2;
+    }
+    .slot {
+      background-color: #e0e0e0;
+    }
+    button {
+        font-family: 'Courier New', Courier, monospace;
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 16px;
+    }
+
+    h1{
+         color: white;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Trascina i blocchi per comporre la frase</h1>
+
+<div class="blocks" id="blocchi" ondrop="returnBlock(event)" ondragover="allowDrop(event)">
+  <div class="block" draggable="true">e ci</div>
+<div class="block" draggable="true">ra p</div>
+<div class="block" draggable="true">o di</div>
+<div class="block" draggable="true"> cos</div>
+<div class="block" draggable="true">nebr</div>
+<div class="block" draggable="true">e è </div>
+<div class="block" draggable="true">dimo</div>
+<div class="block" draggable="true">; co</div>
+<div class="block" draggable="true">"Eg</div>
+<div class="block" draggable="true">nell</div>
+<div class="block" draggable="true">."  </div>
+<div class="block" draggable="true">a le</div>
+<div class="block" draggable="true">e e </div>
+<div class="block" draggable="true">ivel</div>
+<div class="block" draggable="true">li r</div>
+<div class="block" draggable="true">la l</div>
+<div class="block" draggable="true">ofon</div>
+<div class="block" draggable="true"> occ</div>
+<div class="block" draggable="true">e te</div>
+<div class="block" draggable="true">ele </div>
+<div class="block" draggable="true">ress</div>
+<div class="block" draggable="true">ò ch</div>
+<div class="block" draggable="true">2:22</div>
+<div class="block" draggable="true">de e</div>
+<div class="block" draggable="true">nosc</div>
+<div class="block" draggable="true">e pr</div>
+<div class="block" draggable="true">uce </div>
+<div class="block" draggable="true">ulte</div>
+<div class="block" draggable="true">Dani</div>
+<div class="block" draggable="true"> lui</div>
+
+</div>
+
+<div class="dropzone" id="zonaDrop">
+  <!-- 30 slot vuoti -->
+  <div class="slot" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+  <div class="slot" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+  <div class="slot" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+  <div class="slot" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+  <div class="slot" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+  <div class="slot" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+  <div class="slot" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+  <div class="slot" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+  <div class="slot" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+  <div class="slot" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+  <div class="slot" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+  <div class="slot" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+  <div class="slot" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+  <div class="slot" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+  <div class="slot" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+  <div class="slot" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+  <div class="slot" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+  <div class="slot" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+  <div class="slot" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+  <div class="slot" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+  <div class="slot" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+  <div class="slot" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+  <div class="slot" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+  <div class="slot" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+  <div class="slot" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+  <div class="slot" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+  <div class="slot" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+  <div class="slot" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+  <div class="slot" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+  <div class="slot" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+</div>
+
+<button onclick="controllaFrase()">Controlla</button>
+
+<script>
+  let dragged;
+
+  document.querySelectorAll('.block').forEach(block => {
+    block.addEventListener('dragstart', e => {
+      dragged = block;
+    });
+  });
+
+  function allowDrop(ev) {
+    ev.preventDefault();
+  }
+
+  function drop(ev) {
+    ev.preventDefault();
+    if (ev.target.classList.contains('slot') && ev.target.children.length === 0) {
+      ev.target.appendChild(dragged);
+    }
+  }
+
+  function returnBlock(ev) {
+    ev.preventDefault();
+    if (ev.target.id === "blocchi" && !document.getElementById("blocchi").contains(dragged)) {
+      document.getElementById("blocchi").appendChild(dragged);
+    }
+  }
+
+  function controllaFrase() {
+    const ordineCorretto = [
+      "Dani", "ele ", "2:22", "\"Eg", "li r", "ivel", "a le", " cos", "e pr",
+      "ofon", "de e", " occ", "ulte", "; co", "nosc", "e ci", "ò ch", "e è ",
+      "nell", "e te", "nebr", "e e ", "la l", "uce ", "dimo", "ra p", "ress",
+      "o di", " lui", ".\"  "
+    ].join("").toLowerCase().replaceAll(" ", "");
+
+    const slotText = Array.from(document.querySelectorAll('.slot')).map(slot => slot.textContent.trim().toLowerCase().replaceAll(" ", "")).join("");
+
+    if (slotText === ordineCorretto) {
+      window.location.href = "3.html";
+    } else {
+      alert("Frase errata. Riprova.");
+    }
+  }
+</script>
+
+</body>
+</html>
